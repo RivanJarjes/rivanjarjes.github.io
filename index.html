@@ -4,14 +4,28 @@
     <meta charset="utf-8" />
     <title>Javascript Chess</title>
     <style>
+      @font-face {
+        font-family: OpenSans;
+        src: url(fonts/open_sans.ttf);
+      }
       * {
         padding: 0;
         margin: 0;
       }
       .text {
+        font-family: OpenSans;
         color: white;
       }
+      a:link, a:visited {
+        background-color: #779556;
+        color: white;
+        padding: 15px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
       body {
+        font-family: OpenSans;
         background: rgb(49, 46, 43);
       }
       canvas {
@@ -39,12 +53,14 @@
       <img id="BlackQueen" src="sprites/BlackQueen.png" />
       <img id="GreyCircle" src="sprites/GreyCircle.png"/>
       <img id="GreyCircle2" src="sprites/GreyCircle2.png"/>
+      <img id="CheckWhiteKing" src="sprites/CheckWhiteKing.png" />
+      <img id="CheckBlackKing" src="sprites/CheckBlackKing.png" />
       <img id="ConfirmLoad" src="sprites/$ConfirmLoad.png" />
     </div>
     <script src = "script.js"></script>
     
     <p id = "value" class="text"></p>
     <p class="text">Sprites by Wikipedia user: Cburnett</p>
-    <a class="text" href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=55002446">Link</a>
+    <a class="text" href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a> <a class = "link" href="https://commons.wikimedia.org/w/index.php?curid=55002446">Link</a>
   </body>
 </html>
