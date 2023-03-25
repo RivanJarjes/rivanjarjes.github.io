@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Javascript Chess</title>
+    <style>
+      @font-face {
+        font-family: OpenSans;
+        src: url(fonts/open_sans.ttf);
+      }
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .text {
+        font-family: OpenSans;
+        color: white;
+      }
+      a:link, a:visited {
+        background-color: #779556;
+        color: white;
+        padding: 15px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+      body {
+        font-family: OpenSans;
+        background: rgb(49, 46, 43);
+      }
+      footer {
+        position: absolute;
+        bottom: 5px;
+      }
+      canvas {
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+    
+  </head>
+  <body>
+    <h1 class="text"><center>Javascript Chess by Rivan Jarjes</center></h1>
+    <canvas id="myCanvas" width="550" height="550"></canvas>
+    <div style="display:none;">
+      <img id="WhitePawn" src="sprites/WhitePawn.png" />
+      <img id="BlackPawn" src="sprites/BlackPawn.png" />
+      <img id="WhiteRook" src="sprites/WhiteRook.png" />
+      <img id="BlackRook" src="sprites/BlackRook.png" />
+      <img id="WhiteBishop" src="sprites/WhiteBishop.png" />
+      <img id="BlackBishop" src="sprites/BlackBishop.png" />
+      <img id="WhiteKnight" src="sprites/WhiteKnight.png" />
+      <img id="BlackKnight" src="sprites/BlackKnight.png" />
+      <img id="WhiteKing" src="sprites/WhiteKing.png" />
+      <img id="BlackKing" src="sprites/BlackKing.png" />
+      <img id="WhiteQueen" src="sprites/WhiteQueen.png" />
+      <img id="BlackQueen" src="sprites/BlackQueen.png" />
+      <img id="GreyCircle" src="sprites/GreyCircle.png"/>
+      <img id="GreyCircle2" src="sprites/GreyCircle2.png"/>
+      <img id="CheckWhiteKing" src="sprites/CheckWhiteKing.png" />
+      <img id="CheckBlackKing" src="sprites/CheckBlackKing.png" />
+      <img id="ConfirmLoad" src="sprites/$ConfirmLoad.png" />
+    </div>
+    <script src = "script.js"></script>
+    
+    <p id = "value" class="text"></p>
+    
+  </body>
+  <footer>
+    <p class="text">Sprites by Wikipedia user: Cburnett</p>
+    <a class="text" href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">CC BY-SA 3.0</a> <a class = "link" href="https://commons.wikimedia.org/w/index.php?curid=55002446">Link</a>
+  </footer>
+</html>
