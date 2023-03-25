@@ -594,7 +594,7 @@ function isKingCheck(usedGrid = grid, KingColor = Turn) {
 }
 
 function checkForCheckMate(Color = Turn) {
-  if (isKingCheck() == false){
+  if (isKingCheck() == false) {
     return false;
   }
 
@@ -861,7 +861,7 @@ function update() {
     promptScreen("Checkmate");
   }
 
-  if (checkForStaleMate()){
+  if (checkForStaleMate()) {
     promptScreen("Stalemate");
   }
 }
