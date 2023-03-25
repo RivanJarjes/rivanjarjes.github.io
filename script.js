@@ -12,7 +12,6 @@ var TransitionAlpha = 0;
 var MouseX = 0;
 var MouseY = 0;
 var MouseClick = false;
-var MouseHeld = false;
 var SelectX = 0;
 var SelectY = 0;
 var lastSelectX = 0;
@@ -134,14 +133,18 @@ function drawSquare() {
       ctx.rect(this.$x, this.$y, this.$length, this.$length);
       ctx.fill();
 
+      //if king in check, add prefix to display alternate sprite
       let Check = "";
       if (grid[x][y].Status == "King" && isKingCheck(grid, grid[x][y].Color)) {
         Check = "CH";
       }
 
+      //draw piece
       if (grid[x][y].Status != null) {
         DrawPiece(eval(Check + grid[x][y].Color + grid[x][y].Status));
       }
+
+      //draw selection
       if (grid[x][y].Status == null && grid[x][y].Selection == true) {
         DrawPiece(PlaceOption);
       }
@@ -208,17 +211,19 @@ function movePiece(
       usedGrid[0][oldY].Status = null;
       usedGrid[4][oldY].Status = null;
     }
-
+    
+    //change turn
     if (changeTurn) {
-        if (Turn == "white") {
-          Turn = "black";
-        } else {
-          Turn = "white";
-        }
+      if (Turn == "white") {
+        Turn = "black";
+      } else {
+        Turn = "white";
       }
+    }
     return;
   }
-
+  
+  //moves piece when new click selection is a possible move
   if (usedGrid[newX][newY].Selection == true) {
     usedGrid[newX][newY].Original = false;
     usedGrid[newX][newY].Status = usedGrid[oldX][oldY].Status;
@@ -237,15 +242,16 @@ function movePiece(
     }
 
     if (changeTurn) {
-        if (Turn == "white") {
-          Turn = "black";
-        } else {
-          Turn = "white";
-        }
+      if (Turn == "white") {
+        Turn = "black";
+      } else {
+        Turn = "white";
       }
+    }
   }
 }
 
+//check if any box is a possible move for selected piece
 function drawOverlay() {
   let OverlayList = possibleMoves(SelectX, SelectY);
 
@@ -272,6 +278,7 @@ function drawOverlay() {
   }
 }
 
+//check all the possible moves
 var possibleMoves = function (x, y, usedGrid = grid, onlyAttacks = false) {
   let MoveList = [];
   let Direction;
@@ -284,46 +291,32 @@ var possibleMoves = function (x, y, usedGrid = grid, onlyAttacks = false) {
   switch (usedGrid[x][y].Status) {
     case "Pawn":
       if (y - 1 * Direction > -1 && y - 1 * Direction < gridSize) {
+        //move pawn up if possible
         if (
           usedGrid[x][y - 1 * Direction].Status == null &&
           onlyAttacks == false
         ) {
-          if (
-            onlyAttacks == true ||
-            isKingCheck(dummyGrid(x, y - 1 * Direction, x, y), Turn) == false
-          ) {
-            MoveList.push({ X: x, Y: y - 1 * Direction });
-          }
+          MoveList.push({ X: x, Y: y - 1 * Direction });
 
+          //allow pawn to move 2 spaces if first move
           if (y - 2 * Direction > -1 && y - 2 * Direction < gridSize) {
             if (
               usedGrid[x][y - 2 * Direction].Status == null &&
               usedGrid[x][y].Original == true
             ) {
-              if (
-                onlyAttacks == true ||
-                isKingCheck(dummyGrid(x, y - 2 * Direction, x, y), Turn) ==
-                  false
-              ) {
-                MoveList.push({ X: x, Y: y - 2 * Direction });
-              }
+              MoveList.push({ X: x, Y: y - 2 * Direction });
             }
           }
         }
 
+        //allow 
         if (x - 1 > -1) {
           if (
             onlyAttacks == true ||
             (usedGrid[x - 1][y - 1 * Direction].Status != null &&
               usedGrid[x - 1][y - 1 * Direction].Color != usedGrid[x][y].Color)
           ) {
-            if (
-              onlyAttacks == true ||
-              isKingCheck(dummyGrid(x - 1, y - 1 * Direction, x, y), Turn) ==
-                false
-            ) {
-              MoveList.push({ X: x - 1, Y: y - 1 * Direction });
-            }
+            MoveList.push({ X: x - 1, Y: y - 1 * Direction });
           }
         }
         if (x + 1 < gridSize) {
@@ -332,13 +325,8 @@ var possibleMoves = function (x, y, usedGrid = grid, onlyAttacks = false) {
             (usedGrid[x + 1][y - 1 * Direction].Status != null &&
               usedGrid[x + 1][y - 1 * Direction].Color != usedGrid[x][y].Color)
           ) {
-            if (
-              onlyAttacks == true ||
-              isKingCheck(dummyGrid(x + 1, y - 1 * Direction, x, y), Turn) ==
-                false
-            ) {
-              MoveList.push({ X: x + 1, Y: y - 1 * Direction });
-            }
+            MoveList.push({ X: x + 1, Y: y - 1 * Direction });
+            
           }
         }
       }
@@ -347,88 +335,48 @@ var possibleMoves = function (x, y, usedGrid = grid, onlyAttacks = false) {
     case "Knight":
       if (x - 1 > -1 && y - 2 > -1) {
         if (usedGrid[x - 1][y - 2].Color != usedGrid[x][y].Color) {
-          if (
-            onlyAttacks == true ||
-            isKingCheck(dummyGrid(x - 1, y - 2, x, y), Turn) == false
-          ) {
             MoveList.push({ X: x - 1, Y: y - 2 });
-          }
         }
       }
 
       if (y - 2 > -1 && x + 1 < gridSize) {
         if (usedGrid[x + 1][y - 2].Color != usedGrid[x][y].Color) {
-          if (
-            onlyAttacks == true ||
-            isKingCheck(dummyGrid(x + 1, y - 2, x, y), Turn) == false
-          ) {
             MoveList.push({ X: x + 1, Y: y - 2 });
-          }
         }
       }
 
       if (x - 1 > -1 && y + 2 < gridSize) {
         if (usedGrid[x - 1][y + 2].Color != usedGrid[x][y].Color) {
-          if (
-            onlyAttacks == true ||
-            isKingCheck(dummyGrid(x - 1, y + 2, x, y), Turn) == false
-          ) {
             MoveList.push({ X: x - 1, Y: y + 2 });
-          }
         }
       }
 
       if (x + 1 < gridSize && y + 2 < gridSize) {
         if (usedGrid[x + 1][y + 2].Color != usedGrid[x][y].Color) {
-          if (
-            onlyAttacks == true ||
-            isKingCheck(dummyGrid(x + 1, y + 2, x, y), Turn) == false
-          ) {
             MoveList.push({ X: x + 1, Y: y + 2 });
-          }
         }
       }
       if (x - 2 > -1 && y - 1 > -1) {
         if (usedGrid[x - 2][y - 1].Color != usedGrid[x][y].Color) {
-          if (
-            onlyAttacks == true ||
-            isKingCheck(dummyGrid(x - 2, y - 1, x, y), Turn) == false
-          ) {
             MoveList.push({ X: x - 2, Y: y - 1 });
-          }
         }
       }
 
       if (y - 1 > -1 && x + 2 < gridSize) {
         if (usedGrid[x + 2][y - 1].Color != usedGrid[x][y].Color) {
-          if (
-            onlyAttacks == true ||
-            isKingCheck(dummyGrid(x + 2, y - 1, x, y), Turn) == false
-          ) {
             MoveList.push({ X: x + 2, Y: y - 1 });
-          }
         }
       }
 
       if (x - 2 > -1 && y + 1 < gridSize) {
         if (usedGrid[x - 2][y + 1].Color != usedGrid[x][y].Color) {
-          if (
-            onlyAttacks == true ||
-            isKingCheck(dummyGrid(x - 2, y + 1, x, y), Turn) == false
-          ) {
             MoveList.push({ X: x - 2, Y: y + 1 });
-          }
         }
       }
 
       if (x + 2 < gridSize && y + 1 < gridSize) {
         if (usedGrid[x + 2][y + 1].Color != usedGrid[x][y].Color) {
-          if (
-            onlyAttacks == true ||
-            isKingCheck(dummyGrid(x + 2, y + 1, x, y), Turn) == false
-          ) {
             MoveList.push({ X: x + 2, Y: y + 1 });
-          }
         }
       }
 
@@ -839,10 +787,12 @@ function promptScreen(promptType = "Checkmate") {
 }
 
 function update() {
+  //if prompt occurs, disallow movement
   if (AwaitPromotion || gameOver) {
     AbleToMove = false;
   } else {
     AbleToMove = true;
+    TransitionAlpha = 0;
   }
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -863,6 +813,7 @@ function update() {
     newSelection = false;
   }
 
+  //bring up prompt based on scenario
   if (AwaitPromotion) {
     promptScreen("Promotion");
   }
@@ -902,7 +853,6 @@ canvas.addEventListener(
   "mousedown",
   function (evt) {
     MouseClick = true;
-    MouseHeld = true;
   },
   false
 );
@@ -910,7 +860,6 @@ canvas.addEventListener(
   "mouseup",
   function (evt) {
     MouseClick = true;
-    MouseHeld = false;
   },
   false
 );
