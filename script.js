@@ -91,8 +91,11 @@ function SetBoard() {
       }
 
       if (y >= 2 && y <= 5) {
+        grid[x][y].Color = null;
         grid[x][y].Status = null;
       }
+      grid[x][y].Selection = false;
+      grid[x][y].Original = true;
     }
   }
 }
@@ -206,6 +209,13 @@ function movePiece(
       usedGrid[4][oldY].Status = null;
     }
 
+    if (changeTurn) {
+        if (Turn == "white") {
+          Turn = "black";
+        } else {
+          Turn = "white";
+        }
+      }
     return;
   }
 
@@ -227,12 +237,12 @@ function movePiece(
     }
 
     if (changeTurn) {
-      if (Turn == "white") {
-        Turn = "black";
-      } else {
-        Turn = "white";
+        if (Turn == "white") {
+          Turn = "black";
+        } else {
+          Turn = "white";
+        }
       }
-    }
   }
 }
 
