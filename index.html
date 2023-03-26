@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rivan Jarjes</title>
+    <link rel="icon" type="image/x-icon" href="/images/icon.png" />
     <script src="script.js"></script>
     <style>
       @font-face {
@@ -15,35 +16,144 @@
         padding: 0;
         margin: 0;
       }
-      .text {
+      .title {
+        content: "";
+        clear: both;
+        display: flex;
+        padding: 16px;
+        font-size: 20px;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        background-color: rgb(255, 255, 255);
         font-family: OpenSans;
         color: rgb(0, 0, 0);
       }
-      .title {
-        padding: 16px;
+      .titledesc {
+        padding-top: 17px;
+        padding-left: 10px;
+      }
+      .right {
+        width: 70%;
+        float: right;
+        text-align: right;
+        font-size: 15px;
+      }
+      .righticon {
+        width: 70%;
+        float: right;
+        text-align: right;
+        font-size: 15px;
+        width: 30px;
+      }
+      .heading {
+        font-size: 30px;
+        font-family: OpenSans;
+        padding-top: 10px;
+        padding-left: 50px;
+        opacity: 1;
+        animation-name: fadeInOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 0.25s;
+      }
+      .bulletpoint {
         font-size: 20px;
-        position: sticky;
-        position: -webkit-sticky;
-        background-color: rgb(255, 255, 255);
+        font-family: OpenSans;
+        padding-top: 10px;
+        padding-left: 80px;
+        opacity: 1;
+        animation-name: fadeInOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 0.25s;
       }
       .projects {
+        margin: auto;
+        padding-left: 50px;
+        padding-top: 20px;
         font-family: OpenSans;
         background: rgb(248, 249, 250);
         display: flex;
         flex-wrap: wrap;
       }
-      body{
+      body {
         background: rgb(248, 249, 250);
+      }
+      .box {
+        color: black;
+        text-decoration: none;
+        display: block;
+        margin-right: 50px;
+        margin-bottom: 50px;
+        background-color: rgb(255, 255, 255);
+        width: 300px;
+
+        opacity: 1;
+        animation-name: fadeInOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 0.25s;
+      }
+
+      @keyframes fadeInOpacity {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .boximg {
+        width: 300px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+      }
+      .boxtitle {
+        font-size: 2rem;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      .boxinfo {
+        padding-left: 10px;
+        padding-bottom: 20px;
       }
     </style>
   </head>
   <body>
     <div class="title" id="title">
-      <h1 class="text">Rivan Jarjes</h1>
-      <p class="text">17 year old progamming hobbyist</p>
+      <h1>Rivan Jarjes</h1>
+      <p class="titledesc">17 year old progamming hobbyist</p>
+      <div class="right">
+        <p>RivanJarjes@gmail.com<br />(647) 619-0149</p>
+        <a href="https://github.com/RivanJarjes"
+          ><img src="images/githubicon.png" class="righticon"
+        /></a>
+      </div>
     </div>
+    <h2 class="heading">Projects</h2>
     <div class="projects">
-      
+      <a href="chess/index.html" class="box">
+        <img class="boximg" src="images/ChessThumbnail.png" alt="header" />
+        <h3 class="boxtitle">Chess</h3>
+        <p class="boxinfo">Made with Javascript</p>
+      </a>
+      <a href="WordleWFA.zip" class="box">
+        <img class="boximg" src="images/WordleThumbnail.png" alt="header" />
+        <h3 class="boxtitle">Wordle Windows</h3>
+        <p class="boxinfo">Made with C#, WFA</p>
+      </a>
     </div>
+    <h2 class="heading">About Me</h2>
+    <ul class="bulletpoint">
+      <li> I am currently a 17 year old high school student</li>
+      <li> I am interested in computer science as a hobby and a potential future career</li>
+      <li> At the moment I'm learning more about C#, Javascript, Python, and HTML/CSS</li>
+      <li> Aim to soon learn about React, MySQL, Tailwind, and Mongo DB</li>
+      <li> Most of my projects are created for learning purposes</li>
+    </ul>
   </body>
 </html>

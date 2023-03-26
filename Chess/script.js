@@ -17,27 +17,27 @@ var SelectY = 0;
 var lastSelectX = 0;
 var lastSelectY = 0;
 var newSelection = false;
-var Turn = "white";
+var Turn = "White";
 var AbleToMove = true;
 var AwaitPromotion = false;
 var gameOver = false;
 var Winner = null;
 
 //pieces
-const whitePawn = document.getElementById("WhitePawn");
-const blackPawn = document.getElementById("BlackPawn");
-const whiteRook = document.getElementById("WhiteRook");
-const blackRook = document.getElementById("BlackRook");
-const whiteBishop = document.getElementById("WhiteBishop");
-const blackBishop = document.getElementById("BlackBishop");
-const whiteKnight = document.getElementById("WhiteKnight");
-const blackKnight = document.getElementById("BlackKnight");
-const whiteKing = document.getElementById("WhiteKing");
-const blackKing = document.getElementById("BlackKing");
-const CHwhiteKing = document.getElementById("CheckWhiteKing");
-const CHblackKing = document.getElementById("CheckBlackKing");
-const whiteQueen = document.getElementById("WhiteQueen");
-const blackQueen = document.getElementById("BlackQueen");
+const WhitePawn = document.getElementById("WhitePawn");
+const BlackPawn = document.getElementById("BlackPawn");
+const WhiteRook = document.getElementById("WhiteRook");
+const BlackRook = document.getElementById("BlackRook");
+const WhiteBishop = document.getElementById("WhiteBishop");
+const BlackBishop = document.getElementById("BlackBishop");
+const WhiteKnight = document.getElementById("WhiteKnight");
+const BlackKnight = document.getElementById("BlackKnight");
+const WhiteKing = document.getElementById("WhiteKing");
+const BlackKing = document.getElementById("BlackKing");
+const CHWhiteKing = document.getElementById("CheckWhiteKing");
+const CHBlackKing = document.getElementById("CheckBlackKing");
+const WhiteQueen = document.getElementById("WhiteQueen");
+const BlackQueen = document.getElementById("BlackQueen");
 const PlaceOption = document.getElementById("GreyCircle");
 const PlaceOption2 = document.getElementById("GreyCircle2");
 
@@ -63,10 +63,10 @@ function SetBoard() {
   for (let x = 0; x < gridSize; x++) {
     for (let y = 0; y < gridSize; y++) {
       if (y < 2) {
-        grid[x][y].Color = "black";
+        grid[x][y].Color = "Black";
       }
       if (y > gridSize - 3) {
-        grid[x][y].Color = "white";
+        grid[x][y].Color = "White";
       }
       if (y == 1 || y == gridSize - 2) {
         grid[x][y].Status = "Pawn";
@@ -211,18 +211,18 @@ function movePiece(
       usedGrid[0][oldY].Status = null;
       usedGrid[4][oldY].Status = null;
     }
-    
+
     //change turn
     if (changeTurn) {
-      if (Turn == "white") {
-        Turn = "black";
+      if (Turn == "White") {
+        Turn = "Black";
       } else {
-        Turn = "white";
+        Turn = "White";
       }
     }
     return;
   }
-  
+
   //moves piece when new click selection is a possible move
   if (usedGrid[newX][newY].Selection == true) {
     usedGrid[newX][newY].Original = false;
@@ -234,18 +234,18 @@ function movePiece(
 
     if (
       usedGrid[newX][newY].Status == "Pawn" &&
-      ((usedGrid[newX][newY].Color == "white" && newY == 0) ||
-        (usedGrid[newX][newY].Color == "black" && newY == gridSize - 1))
+      ((usedGrid[newX][newY].Color == "White" && newY == 0) ||
+        (usedGrid[newX][newY].Color == "Black" && newY == gridSize - 1))
     ) {
       AwaitPromotion = true;
       return;
     }
 
     if (changeTurn) {
-      if (Turn == "white") {
-        Turn = "black";
+      if (Turn == "White") {
+        Turn = "Black";
       } else {
-        Turn = "white";
+        Turn = "White";
       }
     }
   }
@@ -282,7 +282,7 @@ function drawOverlay() {
 var possibleMoves = function (x, y, usedGrid = grid, onlyAttacks = false) {
   let MoveList = [];
   let Direction;
-  if (usedGrid[x][y].Color == "white") {
+  if (usedGrid[x][y].Color == "White") {
     Direction = 1;
   } else {
     Direction = -1;
@@ -309,7 +309,7 @@ var possibleMoves = function (x, y, usedGrid = grid, onlyAttacks = false) {
           }
         }
 
-        //allow 
+        //allow
         if (x - 1 > -1) {
           if (
             onlyAttacks == true ||
@@ -326,7 +326,6 @@ var possibleMoves = function (x, y, usedGrid = grid, onlyAttacks = false) {
               usedGrid[x + 1][y - 1 * Direction].Color != usedGrid[x][y].Color)
           ) {
             MoveList.push({ X: x + 1, Y: y - 1 * Direction });
-            
           }
         }
       }
@@ -335,48 +334,48 @@ var possibleMoves = function (x, y, usedGrid = grid, onlyAttacks = false) {
     case "Knight":
       if (x - 1 > -1 && y - 2 > -1) {
         if (usedGrid[x - 1][y - 2].Color != usedGrid[x][y].Color) {
-            MoveList.push({ X: x - 1, Y: y - 2 });
+          MoveList.push({ X: x - 1, Y: y - 2 });
         }
       }
 
       if (y - 2 > -1 && x + 1 < gridSize) {
         if (usedGrid[x + 1][y - 2].Color != usedGrid[x][y].Color) {
-            MoveList.push({ X: x + 1, Y: y - 2 });
+          MoveList.push({ X: x + 1, Y: y - 2 });
         }
       }
 
       if (x - 1 > -1 && y + 2 < gridSize) {
         if (usedGrid[x - 1][y + 2].Color != usedGrid[x][y].Color) {
-            MoveList.push({ X: x - 1, Y: y + 2 });
+          MoveList.push({ X: x - 1, Y: y + 2 });
         }
       }
 
       if (x + 1 < gridSize && y + 2 < gridSize) {
         if (usedGrid[x + 1][y + 2].Color != usedGrid[x][y].Color) {
-            MoveList.push({ X: x + 1, Y: y + 2 });
+          MoveList.push({ X: x + 1, Y: y + 2 });
         }
       }
       if (x - 2 > -1 && y - 1 > -1) {
         if (usedGrid[x - 2][y - 1].Color != usedGrid[x][y].Color) {
-            MoveList.push({ X: x - 2, Y: y - 1 });
+          MoveList.push({ X: x - 2, Y: y - 1 });
         }
       }
 
       if (y - 1 > -1 && x + 2 < gridSize) {
         if (usedGrid[x + 2][y - 1].Color != usedGrid[x][y].Color) {
-            MoveList.push({ X: x + 2, Y: y - 1 });
+          MoveList.push({ X: x + 2, Y: y - 1 });
         }
       }
 
       if (x - 2 > -1 && y + 1 < gridSize) {
         if (usedGrid[x - 2][y + 1].Color != usedGrid[x][y].Color) {
-            MoveList.push({ X: x - 2, Y: y + 1 });
+          MoveList.push({ X: x - 2, Y: y + 1 });
         }
       }
 
       if (x + 2 < gridSize && y + 1 < gridSize) {
         if (usedGrid[x + 2][y + 1].Color != usedGrid[x][y].Color) {
-            MoveList.push({ X: x + 2, Y: y + 1 });
+          MoveList.push({ X: x + 2, Y: y + 1 });
         }
       }
 
@@ -566,7 +565,7 @@ function checkForCheckMate(Color = Turn) {
       }
     }
   }
-  if (Color == "white") {
+  if (Color == "White") {
     Winner = "Black";
   } else {
     Winner = "White";
@@ -626,7 +625,7 @@ function promptScreen(promptType = "Checkmate") {
       ctx.fill();
       ctx.font = "20px OpenSans";
       ctx.textAlign = "center";
-      ctx.fillStyle = "black";
+      ctx.fillStyle = "Black";
       ctx.fillText(
         Winner + " wins by checkmate!",
         canvas.width / 2,
@@ -650,7 +649,7 @@ function promptScreen(promptType = "Checkmate") {
       ctx.fill();
       ctx.font = "20px OpenSans";
       ctx.textAlign = "center";
-      ctx.fillStyle = "white";
+      ctx.fillStyle = "White";
       ctx.fillText("Retry", canvas.width / 2, canvas.height / 2 + 57);
 
       if (
@@ -681,7 +680,7 @@ function promptScreen(promptType = "Checkmate") {
       ctx.fill();
       ctx.font = "20px OpenSans";
       ctx.textAlign = "center";
-      ctx.fillStyle = "black";
+      ctx.fillStyle = "Black";
       ctx.fillText("Stalemate!", canvas.width / 2, canvas.height / 2 - 20);
       ctx.closePath();
 
@@ -701,7 +700,7 @@ function promptScreen(promptType = "Checkmate") {
       ctx.fill();
       ctx.font = "20px OpenSans";
       ctx.textAlign = "center";
-      ctx.fillStyle = "white";
+      ctx.fillStyle = "White";
       ctx.fillText("Retry", canvas.width / 2, canvas.height / 2 + 57);
 
       if (
@@ -763,7 +762,7 @@ function promptScreen(promptType = "Checkmate") {
 
       if (Choice != null) {
         let y;
-        if (Turn == "white") {
+        if (Turn == "White") {
           y = 0;
         } else {
           y = gridSize - 1;
@@ -772,10 +771,10 @@ function promptScreen(promptType = "Checkmate") {
         for (let i = 0; i < gridSize; i++) {
           if (grid[i][y].Status == "Pawn") {
             grid[i][y].Status = Choice;
-            if (Turn == "white") {
-              Turn = "black";
+            if (Turn == "White") {
+              Turn = "Black";
             } else {
-              Turn = "white";
+              Turn = "White";
             }
             AwaitPromotion = false;
             return;
@@ -798,14 +797,17 @@ function update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawSquare();
 
-  if (newSelection == true && gameOver == false) {
-    //Edit current selection
-    document.getElementById("value").innerHTML =
-      "<center>Currently selected: " +
-      String.fromCharCode(97 + SelectX) +
-      (SelectY + 1) +
-      "</center>";
+  //Edit current selection
+  document.getElementById("value").innerHTML =
+  "<center>Currently selected: " +
+  String.fromCharCode(97 + SelectX) +
+  (SelectY + 1) +
+  "</center>";
+  //tell whos turn it is
+  document.getElementById("turn").innerHTML = "<center>" + Turn + " Turn";
+  ("</center>");
 
+  if (newSelection == true && gameOver == false) {
     //Move piece if there's a new selection
     movePiece();
     //Find all selections with
@@ -830,7 +832,7 @@ setInterval(update, 20);
 
 //Restart game
 function restartBoard() {
-  Turn = "white";
+  Turn = "White";
   SetBoard();
   AbleToMove = true;
   AwaitPromotion = false;
